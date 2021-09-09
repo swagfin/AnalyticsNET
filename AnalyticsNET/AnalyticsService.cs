@@ -6,6 +6,9 @@ using System.Timers;
 
 namespace AnalyticsNET.Services
 {
+    /// <summary>
+    /// Main analytics service, This service should be declared as s Singleton (Single Instance)
+    /// </summary>
     public class AnalyticsService
     {
         private AnalyticConfiguration configurations { get; set; }
@@ -22,16 +25,20 @@ namespace AnalyticsNET.Services
         }
         private Timer analyticsTimer { get; set; }
 
+
         public AnalyticsService(AnalyticsDeviceOptions analyticsDeviceOptions, IAnalyticsLogger analyticsLogger = null)
         {
             this.AnalyticsDeviceOptions = analyticsDeviceOptions;
             this.logger = analyticsLogger ?? new AnalyticsLogger();
             this.pendingToSendTraits = new ConcurrentQueue<Trait>();
             this.analyticsStatus = AnalyticsStatus.Stopped.ToString();
-            //Call for Start Service
-            StartService();
+            if (this.AnalyticsDeviceOptions.StartServiceAutomatically)
+                StartService();
         }
 
+        /// <summary>
+        /// This will bootup the service in the background. Note: Start Service otherwise traits will not work
+        /// </summary>
         public void StartService()
         {
             try
@@ -63,6 +70,9 @@ namespace AnalyticsNET.Services
             }
 
         }
+        /// <summary>
+        /// Stop Service to End the Analytics process
+        /// </summary>
         public void StopService()
         {
             logger.LogInformation("Stopping Analytics Service");

@@ -16,6 +16,7 @@ namespace AnalyticsNET.Services
         private AnalyticsDeviceOptions AnalyticsDeviceOptions { get; set; }
         private readonly IAnalyticsLogger logger;
         private Thread _analyticThread;
+        private int _allSuccessfullySentTraits = 0;
 
         private ConcurrentQueue<Trait> pendingToSendTraits { get; set; } = new ConcurrentQueue<Trait>();
 
@@ -150,6 +151,7 @@ namespace AnalyticsNET.Services
                                 trait.SentSuccesfully = true;
                                 trait.FailedCount = 0;
                                 sentSuccess++;
+                                this._allSuccessfullySentTraits++;
                                 Trait _key = trait;
                                 this.pendingToSendTraits.TryDequeue(out _key);
                             }
@@ -224,7 +226,6 @@ namespace AnalyticsNET.Services
             }
         }
 
-
         protected virtual void OnMaxFailedToSendTraitsReached(int failedCount)
         {
             logger.LogInformation($"Maximum Failed Traits ({failedCount}) reached, Terminating Analytics service");
@@ -246,6 +247,7 @@ namespace AnalyticsNET.Services
 
         public string GetCurrentSessionTrackingID() => this.AnalyticsDeviceOptions.CurrentAnalyticTrackingId;
         public int GetFailedTraitsCount() => this.pendingToSendTraits.Where(x => x.SentSuccesfully != true && x.FailedCount > 0).Count();
+        public int GetSentTraitsCount() => _allSuccessfullySentTraits;
 
         public void Dispose() => StopService();
 

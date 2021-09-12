@@ -1,6 +1,6 @@
 ﻿namespace AnalyticsNET
 {
-    internal enum AnalyticsStatus
+    public enum AnalyticsStatus
     {
         Running,
         Starting,

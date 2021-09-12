@@ -19,8 +19,13 @@ namespace AnalyticsNET
                     client.DefaultRequestHeaders.Add(item.Key, item.Value);
             //End of Headers
             var response = await client.SendAsync(request);
-            string content = await response.Content.ReadAsStringAsync();
-            return content;
+            if (response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                return content;
+            }
+            //Errror
+            throw new Exception($"Server Responded with Error: Status Code: {response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}");
         }
     }
 

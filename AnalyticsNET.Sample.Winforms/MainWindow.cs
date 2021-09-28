@@ -1,6 +1,7 @@
 ﻿using AnalyticsNET.Services;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AnalyticsNET.Sample.Winforms
@@ -18,7 +19,7 @@ namespace AnalyticsNET.Sample.Winforms
             _analyticLogger = new ConsoleLogger(responseBox);
         }
 
-        private void startServiceBtn_Click(object sender, EventArgs e)
+        private async void startServiceBtn_Click(object sender, EventArgs e)
         {
 
             this._analyticService = new AnalyticsService(new AnalyticsDeviceOptions
@@ -37,6 +38,9 @@ namespace AnalyticsNET.Sample.Winforms
 
             //Simple Track
             this._analyticService.Track("health", "login Successfully");
+
+            await Task.Delay(3000);
+            this._analyticService.Track("error", "Issue with Server, 404 Response");
 
             //Monitor
             MonitorTraits();

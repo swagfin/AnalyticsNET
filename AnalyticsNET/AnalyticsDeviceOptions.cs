@@ -37,6 +37,10 @@
         /// Enable the Service to Automatically start without waiting for the main thread to call the StartService Function
         /// </summary>
         public bool StartServiceAutomatically { get; set; } = false;
+        /// <summary>
+        /// Override Analytics Server Endpoint, Leave Blank to use Default
+        /// </summary>
+        public string OverridedAnalyticsServerEndpoint { get; set; } = null;
 
     }
 }

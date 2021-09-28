@@ -54,7 +54,7 @@ namespace AnalyticsNET.Services
                 //Request to Initiate Configuration
                 this.configurations = new AnalyticConfiguration
                 {
-                    EndPointUrl = "https://analytics.crudsofttechnologies.com/",
+                    EndPointUrl =(string.IsNullOrWhiteSpace(this.AnalyticsDeviceOptions.OverridedAnalyticsServerEndpoint)) ? "https://analytics.crudsofttechnologies.com/": this.AnalyticsDeviceOptions.OverridedAnalyticsServerEndpoint,
                     AdditionalRequestHeaders = new Dictionary<string, string>(),
                     AdditionalRequestParameters = new Dictionary<string, string>(),
                     NextCallBackInMilliseconds = 3000

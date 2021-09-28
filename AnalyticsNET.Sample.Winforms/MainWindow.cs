@@ -24,11 +24,12 @@ namespace AnalyticsNET.Sample.Winforms
 
             this._analyticService = new AnalyticsService(new AnalyticsDeviceOptions
             {
-                AppName = "DEMO APP",
-                AppSecretKey = "secret12345",
-                DeviceID = Guid.NewGuid().ToString().ToUpper(),
+                AppName = "SEMANTICPOS",
+                AppSecretKey = "someHashHashKey125456",
+                DeviceID = "EMUD-A001-B001-C001-D001",
                 DeviceName = Environment.MachineName,
-                TrackDeviceHeartBeat = false
+                TrackDeviceHeartBeat = true,
+                 OverridedAnalyticsServerEndpoint= "https://analytics.devtest.com/"
             }, _analyticLogger);
 
             //Start

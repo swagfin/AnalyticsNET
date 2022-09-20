@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AnalyticsNET
 {
@@ -22,6 +23,7 @@ namespace AnalyticsNET
         /// <summary>
         /// The Software Application Name. Usually the current app being used
         /// </summary>
+        [Obsolete("Starting from >v2, server will require AppSecret header-value to identify the App Name ")]
         public string AppName { get; set; }
         /// <summary>
         /// The Secret Key to Authenticate Application

@@ -135,7 +135,7 @@ namespace AnalyticsNET.Logic
                             parameters.Add("traitKey", "rawData");
                             parameters.Add("traitValue", allTraitsAppend);
                             //Add Configs
-                            parameters.Add("appName", _options.AppName);
+                            parameters.Add("appName", "**secret**"); //~Absolete
                             parameters.Add("deviceName", _options.DeviceName);
                             parameters.Add("deviceId", _options.DeviceID);
                             parameters.Add("sessionId", _options.CurrentAnalyticTrackingId);

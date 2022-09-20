@@ -24,7 +24,6 @@ namespace AnalyticsNET.Sample.Winforms
 
             this._analyticService = new AnalyticsService(new AnalyticsDeviceOptions
             {
-                AppName = "SEMANTICPOS",
                 AppSecretKey = "someHashHashKey12545678",
                 DeviceID = "EMUD-A001-B001-C001-D001",
                 DeviceName = Environment.MachineName,

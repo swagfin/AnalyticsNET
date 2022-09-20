@@ -1,4 +1,4 @@
-﻿using AnalyticsNET.Services;
+﻿using AnalyticsNET.Logic;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,7 +29,7 @@ namespace AnalyticsNET.Sample.Winforms
                 DeviceID = "EMUD-A001-B001-C001-D001",
                 DeviceName = Environment.MachineName,
                 TrackDeviceHeartBeat = true,
-                 OverridedAnalyticsServerEndpoint= "https://analytics.devtest.com/"
+                AnalyticsAPIEndpoint = "http://localhost/index.php"
             }, _analyticLogger);
 
             //Start

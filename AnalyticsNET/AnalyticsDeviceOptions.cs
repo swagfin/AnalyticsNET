@@ -1,10 +1,16 @@
-﻿namespace AnalyticsNET
+﻿using System.Collections.Generic;
+
+namespace AnalyticsNET
 {
     /// <summary>
     /// Analytics Options 
     /// </summary>
     public class AnalyticsDeviceOptions
     {
+        /// <summary>
+        /// Analytics Server API Endpoint (Required)
+        /// </summary>
+        public string AnalyticsAPIEndpoint { get; set; } = null;
         /// <summary>
         /// The Name of the Device sending the Analytics
         /// </summary>
@@ -38,9 +44,9 @@
         /// </summary>
         public bool StartServiceAutomatically { get; set; } = false;
         /// <summary>
-        /// Override Analytics Server Endpoint, Leave Blank to use Default
+        /// Additional Request Headers to be appended in the Header of the POST Request
         /// </summary>
-        public string OverridedAnalyticsServerEndpoint { get; set; } = null;
+        public Dictionary<string, string> DefaultRequestHeaders { get; set; }
 
     }
 }

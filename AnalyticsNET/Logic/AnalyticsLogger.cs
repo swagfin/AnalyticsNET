@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AnalyticsNET
+namespace AnalyticsNET.Logic
 {
     public class AnalyticsLogger : IAnalyticsLogger
     {

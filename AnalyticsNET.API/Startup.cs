@@ -1,17 +1,12 @@
 using AnalyticsNET.API.Services.Extensions;
+using AnalyticsNET.API.swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnalyticsNET.API
 {
@@ -56,6 +51,9 @@ namespace AnalyticsNET.API
                         new List<string>()
                     }
                 });
+
+                c.OperationFilter<AppSecretHeaderFilter>();
+
             });
 
 

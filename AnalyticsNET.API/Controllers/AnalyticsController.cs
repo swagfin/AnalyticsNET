@@ -43,8 +43,9 @@ namespace AnalyticsNET.API.Controllers
                     throw new Exception("Invalid Parameters");
                 //Get Required Info
                 string ipAddress = Request.GetClientIpAddress();
-                string appSecret = string.Format("{0}", Request.Headers["appSecret"])?.ToString().Trim();
-                if (string.IsNullOrWhiteSpace(appSecret)) return new BadRequestObjectResult("App Secret Key was not Provided");
+                if (!Request.Headers.ContainsKey("appSecret") || string.IsNullOrWhiteSpace(Request.Headers["appSecret"]))
+                    return new BadRequestObjectResult("App Secret Key was not Provided");
+                string appSecret = Request.Headers["appSecret"].ToString().Trim();
                 if (appSecret.Length < 10) return new BadRequestObjectResult("App Secret was not in the correct format or Length");
                 //Check the App Secret
                 AnalyticUserApplication app = await this._analyticUserApplicationPersistanceService.GetByAppSecretAsync(appSecret);

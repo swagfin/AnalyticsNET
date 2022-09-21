@@ -215,7 +215,7 @@ namespace AnalyticsNET.Logic
                 if (!string.IsNullOrWhiteSpace(nextSessionId) && nextSessionId != _options.CurrentAnalyticTrackingId)
                 {
                     _options.CurrentAnalyticTrackingId = nextSessionId;
-                    _logger.LogInformation($"Session ID Renewed To: {nextSessionId}");
+                    _logger.LogInformation($"New Session ID: {nextSessionId}");
                 }
             }
             catch (Exception ex)

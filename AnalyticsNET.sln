@@ -1,13 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalyticsNET", "AnalyticsNET\AnalyticsNET.csproj", "{CCB4EF5D-BF13-439F-A2A4-01FD8CF90C2A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{2986B264-A86B-443D-AE7C-57DCDA63BD4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsNET.Sample.Winforms", "AnalyticsNET.Sample.Winforms\AnalyticsNET.Sample.Winforms.csproj", "{2892D2E8-FBD0-4146-9610-5058F442B802}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsNET.API", "AnalyticsNET.API\AnalyticsNET.API.csproj", "{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D9972E71-F1B0-4F31-83A8-6CB67BB3FA52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsNET.API.Services", "AnalyticsNET.API.Services\AnalyticsNET.API.Services.csproj", "{7448AF9C-81A1-45D8-BEF4-48FAA06D124D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsNET.API.Entity", "AnalyticsNET.API.Entity\AnalyticsNET.API.Entity.csproj", "{EF7F8729-ADF5-4F62-80C2-B2DBF37DBCFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +31,27 @@ Global
 		{2892D2E8-FBD0-4146-9610-5058F442B802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2892D2E8-FBD0-4146-9610-5058F442B802}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2892D2E8-FBD0-4146-9610-5058F442B802}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7448AF9C-81A1-45D8-BEF4-48FAA06D124D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7448AF9C-81A1-45D8-BEF4-48FAA06D124D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7448AF9C-81A1-45D8-BEF4-48FAA06D124D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7448AF9C-81A1-45D8-BEF4-48FAA06D124D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF7F8729-ADF5-4F62-80C2-B2DBF37DBCFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF7F8729-ADF5-4F62-80C2-B2DBF37DBCFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF7F8729-ADF5-4F62-80C2-B2DBF37DBCFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF7F8729-ADF5-4F62-80C2-B2DBF37DBCFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2892D2E8-FBD0-4146-9610-5058F442B802} = {2986B264-A86B-443D-AE7C-57DCDA63BD4A}
+		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD} = {D9972E71-F1B0-4F31-83A8-6CB67BB3FA52}
+		{7448AF9C-81A1-45D8-BEF4-48FAA06D124D} = {D9972E71-F1B0-4F31-83A8-6CB67BB3FA52}
+		{EF7F8729-ADF5-4F62-80C2-B2DBF37DBCFD} = {D9972E71-F1B0-4F31-83A8-6CB67BB3FA52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CB599E7-37DD-4ACE-94AB-C81693CB6450}

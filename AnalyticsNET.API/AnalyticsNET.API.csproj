@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UserSecretsId>8ef69027-194c-49c8-9d8b-5a98d679b3b2</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\AnalyticsNET.API.Entity\AnalyticsNET.API.Entity.csproj" />
+	  <ProjectReference Include="..\AnalyticsNET.API.Services\AnalyticsNET.API.Services.csproj" />
+	</ItemGroup>
+
+
+</Project>

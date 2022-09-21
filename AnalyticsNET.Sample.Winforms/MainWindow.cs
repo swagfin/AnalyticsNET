@@ -28,7 +28,7 @@ namespace AnalyticsNET.Sample.Winforms
                 DeviceID = "EMUD-A001-B001-C001-D001",
                 DeviceName = Environment.MachineName,
                 TrackDeviceHeartBeat = true,
-                AnalyticsAPIEndpoint = "http://localhost/index.php"
+                AnalyticsAPIEndpoint = "https://localhost:5001/"
             }, _analyticLogger);
 
             //Start

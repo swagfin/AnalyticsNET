@@ -26,7 +26,7 @@ namespace AnalyticsNET
         public AnalyticsService(AnalyticsOptions analyticsDeviceOptions, IAnalyticsLogger analyticsLogger = null)
         {
             _options = analyticsDeviceOptions;
-            _logger = analyticsLogger ?? new AnalyticsLoggerDefault();
+            _logger = analyticsLogger ?? new AnalyticsLoggerNoLogging();
             PendingTraits = new List<Trait>();
             _client = new HttpClient();
             _client.Timeout = TimeSpan.FromMinutes(3);

@@ -2,7 +2,7 @@
 
 namespace AnalyticsNET
 {
-    public class AnalyticsLoggerDefault : IAnalyticsLogger
+    public class AnalyticsLoggerConsole : IAnalyticsLogger
     {
         public virtual void LogInformation(string log)
         {

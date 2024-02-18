@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace AnalyticsNET.Logic
+namespace AnalyticsNET
 {
-    public class AnalyticsLogger : IAnalyticsLogger
+    public class AnalyticsLoggerDefault : IAnalyticsLogger
     {
         public virtual void LogInformation(string log)
         {

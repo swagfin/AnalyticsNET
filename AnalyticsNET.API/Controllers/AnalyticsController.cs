@@ -30,17 +30,12 @@ namespace AnalyticsNET.API.Controllers
             return Redirect("/index.html");
         }
         [HttpPost]
-        public async Task<ActionResult> PostAsync([FromForm] DeviceAnalyticRequest analyticRequest)
-        {
-            _logger.LogInformation("received analytic request");
-            return await HandleDeviceAnalyticsRequestAsync(analyticRequest);
-        }
-        private async Task<ActionResult> HandleDeviceAnalyticsRequestAsync(DeviceAnalyticRequest analyticRequest)
+        public async Task<ActionResult> PostAsync([FromForm] DeviceAnalyticRequest request)
         {
             try
             {
-                if (analyticRequest == null)
-                    throw new Exception("Invalid Parameters");
+                ModelState.ValidateOrThrow();
+                _logger.LogInformation("received analytic request");
                 //Get Required Info
                 string ipAddress = Request.GetClientIpAddress();
                 string appSecret = string.Format("{0}", Request.Headers["appSecret"])?.ToString().Trim();
@@ -49,23 +44,26 @@ namespace AnalyticsNET.API.Controllers
                 //Check the App Secret
                 AnalyticUserApplication app = await this._analyticUserApplicationPersistanceService.GetByAppSecretAsync(appSecret);
                 if (app == null) return new UnauthorizedObjectResult("The provided app secret is invalid or does not seem to belong to a registered application");
-                //Proceed, Check Session ID
-                if (string.IsNullOrWhiteSpace(analyticRequest.SessionId) || analyticRequest.SessionId.Length < 10)
-                    analyticRequest.SessionId = $"ANONYMOUS-{Guid.NewGuid().ToString().ToUpper()}-{DateTime.UtcNow:yyyyMMdd}";
+
+                //** process
+                if (request.TraitKey.Equals("cryptData", StringComparison.OrdinalIgnoreCase))
+                {
+                    string decryptedContent = request.TraitValue.StuDecrypt(2);
+                    _logger.LogInformation(decryptedContent);
+                }
+                else
+                {
+                    _logger.LogInformation(request.TraitValue);
+                }
+                //response
+                string sessionGen = $"ANONYMOUS-{request.AppName}{ipAddress.ToMD5String()}-{DateTime.UtcNow:yyyyMMdd}";
                 //Handle Request to Subscribers
-                // DeviceCallbackObservable.HandleRequest(analyticRequest, currTime);
-#if DEBUG
-                return Content($"3000|{analyticRequest.SessionId}");
-#else
-                return Content($"{_defaultCallBackInt}|{analyticRequest.SessionId}");
-#endif
+                return Content($"10000|{sessionGen}|OK");
             }
             catch (Exception ex)
             {
                 return new BadRequestObjectResult(ex.Message);
             }
         }
-
-
     }
 }

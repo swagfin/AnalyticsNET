@@ -1,5 +1,4 @@
-﻿using AnalyticsNET.Logic;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -9,39 +8,39 @@ namespace AnalyticsNET.Sample.Winforms
     public partial class MainWindow : Form
     {
         public AnalyticsService _analyticService;
+        private readonly CancellationTokenSource _cancellationTokenSource;
         private ConsoleLogger _analyticLogger;
         private Thread _monitorThread;
 
         public MainWindow()
         {
-            CheckForIllegalCrossThreadCalls = false; //DON'T USE THIS IN PRODUCTION
+            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
-            _analyticLogger = new ConsoleLogger(responseBox);
+            this._cancellationTokenSource = new CancellationTokenSource();
+            this._analyticLogger = new ConsoleLogger(responseBox);
         }
 
         private async void startServiceBtn_Click(object sender, EventArgs e)
         {
-
-            this._analyticService = new AnalyticsService(new AnalyticsDeviceOptions
+            startServiceBtn.Enabled = false;
+            this._analyticService = new AnalyticsService(new AnalyticsOptions
             {
                 AppSecretKey = "someHashHashKey12545678",
+                AppName = "TestApp",
                 DeviceID = "EMUD-A001-B001-C001-D001",
-                DeviceName = Environment.MachineName,
-                TrackDeviceHeartBeat = true,
-                AnalyticsAPIEndpoint = "https://localhost:5001/"
+                AnalyticsAPIEndpoint = "https://localhost:7001/",
+                SendDeviceHeartBeats = true,
+                MaxFailedToAbort = 2
             }, _analyticLogger);
 
             //Start
-            this._analyticService.StartService();
-            startServiceBtn.Enabled = false;
+            await this._analyticService.StartAsync(this._cancellationTokenSource.Token);
             stopServiceBtn.Enabled = true;
-
             //Simple Track
             this._analyticService.Track("health", "login Successfully");
 
             await Task.Delay(3000);
             this._analyticService.Track("error", "Issue with Server, 404 Response");
-
             //Monitor
             MonitorTraits();
         }
@@ -55,7 +54,6 @@ namespace AnalyticsNET.Sample.Winforms
                     if (this._analyticService != null)
                     {
                         analyticsFailedLabel.Text = string.Format("{0:N0}", this._analyticService.GetFailedTraitsCount());
-                        sentAnalyticLabel.Text = string.Format("{0:N0}", this._analyticService.GetSentTraitsCount());
                     }
                     Thread.Sleep(1000);
                 }
@@ -63,11 +61,11 @@ namespace AnalyticsNET.Sample.Winforms
             this._monitorThread.Start();
         }
 
-        private void stopServiceBtn_Click(object sender, EventArgs e)
+        private async void stopServiceBtn_Click(object sender, EventArgs e)
         {
-            this._analyticService.Dispose();
-            this._monitorThread.Abort();
             stopServiceBtn.Enabled = false;
+            await this._analyticService.StopAsync(this._cancellationTokenSource.Token);
+            this._monitorThread.Abort();
             startServiceBtn.Enabled = true;
         }
     }

@@ -2,8 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>3.0.1</AssemblyVersion>
-    <FileVersion>3.0.1</FileVersion>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <ApplicationIcon>AnalyticsNET.ico</ApplicationIcon>
+    <PackageIcon>AnalyticsNET.jpg</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="AnalyticsNET.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AnalyticsNET.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

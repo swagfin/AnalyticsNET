@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AnalyticsNET.API.Entity.Requests
+namespace AnalyticsNET.API.Models
 {
     public class DeviceAnalyticRequest
     {

@@ -11,10 +11,5 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\AnalyticsNET.API.Entity\AnalyticsNET.API.Entity.csproj" />
-	  <ProjectReference Include="..\AnalyticsNET.API.Services\AnalyticsNET.API.Services.csproj" />
-	</ItemGroup>
-
 
 </Project>

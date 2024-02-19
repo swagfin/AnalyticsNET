@@ -16,31 +16,33 @@ namespace AnalyticsNET
         private readonly AnalyticsOptions _options;
         private readonly IAnalyticsLogger _logger;
         private Thread AnalyticThread;
-        private HttpClient _client;
+        private readonly HttpClient _client;
         private List<Trait> PendingTraits { get; set; } = new List<Trait>();
 
-        private int NextCallBackInMilliseconds { get; set; } = 10000;
+        private int NextCallBackInMilliseconds { get; set; } = 3000;
         private string StatusRead { get; set; } = "Stopped";
         private string AnalyticsStatus { get { return StatusRead; } set { StatusRead = value; } }
 
         public AnalyticsService(AnalyticsOptions analyticsDeviceOptions, IAnalyticsLogger analyticsLogger = null)
         {
-            _options = analyticsDeviceOptions;
-            _logger = analyticsLogger ?? new AnalyticsLoggerNoLogging();
-            PendingTraits = new List<Trait>();
-            _client = new HttpClient();
-            _client.Timeout = TimeSpan.FromMinutes(3);
-            _client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "SPOS-Analytics");
-            _client.DefaultRequestHeaders.TryAddWithoutValidation("appSecret", _options.AppSecretKey);
+            this._options = analyticsDeviceOptions;
+            this._logger = analyticsLogger ?? new AnalyticsLoggerNoLogging();
+            this.PendingTraits = new List<Trait>();
+            this._client = new HttpClient();
+            this._client.Timeout = TimeSpan.FromSeconds(30);
+            this._client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "SPOS-Analytics");
+            this._client.DefaultRequestHeaders.TryAddWithoutValidation("appSecret", _options.AppSecretKey);
             foreach (KeyValuePair<string, string> param in _options.DefaultRequestHeaders ?? new Dictionary<string, string>())
-                _client.DefaultRequestHeaders.TryAddWithoutValidation(param.Key, param.Value);
-            AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Stopped.ToString();
+                this._client.DefaultRequestHeaders.TryAddWithoutValidation(param.Key, param.Value);
+            this.NextCallBackInMilliseconds = analyticsDeviceOptions.InitialCallBackInMilliseconds;
+            this.AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Stopped.ToString();
+
         }
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("initializing...");
             try
             {
+                _logger.LogInformation("starting service...");
                 if (AnalyticsStatus == AnalyticsNET.AnalyticsStatus.Running.ToString() || AnalyticsStatus == AnalyticsNET.AnalyticsStatus.Seeding.ToString())
                     return Task.CompletedTask;
                 AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Starting.ToString();
@@ -48,6 +50,7 @@ namespace AnalyticsNET
                     throw new Exception("Analytics Server API has not been configured, start failed");
                 //** start thread
                 StartAnalyticBackgroundThread(cancellationToken);
+                _logger.LogInformation("service started...");
             }
             catch (Exception ex)
             {
@@ -104,7 +107,7 @@ namespace AnalyticsNET
                             Dictionary<string, string> parameters = new Dictionary<string, string>
                             {
                                 { "appName", _options.AppName },
-                                { "deviceId", _options.DeviceID },
+                                { "deviceId", _options.DeviceId },
                                 { "deviceName", Environment.MachineName },
                                 { "traitKey", "cryptData" },
                                 { "traitValue", ToStuEncodedString(readyToSendTraits) }

@@ -14,7 +14,7 @@ namespace AnalyticsNET
         /// <summary>
         /// The Device ID or Unique Generated Code for the Device
         /// </summary>
-        public string DeviceID { get; set; }
+        public string DeviceId { get; set; }
         /// <summary>
         /// The Software Application Name. Usually the current app being used
         /// </summary>
@@ -35,5 +35,9 @@ namespace AnalyticsNET
         /// Enable Heartbeats | Sends heartbeat signals
         /// </summary>
         public bool SendDeviceHeartBeats { get; set; } = true;
+        /// <summary>
+        /// Initial wait time before the Service can sent its first analytics, Default is 10 seconds = 10,000 milliseconds
+        /// </summary>
+        public int InitialCallBackInMilliseconds { get; set; } = 10000;
     }
 }

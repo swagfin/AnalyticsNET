@@ -27,10 +27,11 @@ namespace AnalyticsNET.Sample.Winforms
             {
                 AppSecretKey = "someHashHashKey12545678",
                 AppName = "TestApp",
-                DeviceID = "EMUD-A001-B001-C001-D001",
+                DeviceId = "EMUD-A001-B001-C001-D001",
                 AnalyticsAPIEndpoint = "https://localhost:7001/",
                 SendDeviceHeartBeats = true,
-                MaxFailedToAbort = 2
+                MaxFailedToAbort = 2,
+                InitialCallBackInMilliseconds = 5000
             }, _analyticLogger);
 
             //Start

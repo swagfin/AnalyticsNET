@@ -5,7 +5,7 @@
 		<version>1.0.1</version>
 		<title>AnalyticsNET</title>
 		<authors>Crudsoft Technologies</authors>
-		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<license type="expression">MIT</license>
 		<icon>AnalyticsNET.jpg</icon>
 		<projectUrl>https://github.com/swagfin/AnalyticsNET</projectUrl>

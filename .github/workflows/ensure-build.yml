@@ -1,0 +1,25 @@
+name: .NET Ensure Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+    - name: Restore Nuget Packages
+      run: dotnet restore AnalyticsNET/AnalyticsNET.csproj
+    - name: Build Project
+      run: dotnet build AnalyticsNET/AnalyticsNET.csproj --no-restore
+    - name: Test
+      run: dotnet test AnalyticsNET/AnalyticsNET.csproj --no-build --verbosity normal

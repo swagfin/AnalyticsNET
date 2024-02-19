@@ -30,7 +30,7 @@ namespace AnalyticsNET
             PendingTraits = new List<Trait>();
             _client = new HttpClient();
             _client.Timeout = TimeSpan.FromMinutes(3);
-            _client.DefaultRequestHeaders.Add("User-Agent", "SPOS-Analytics");
+            _client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "SPOS-Analytics");
             _client.DefaultRequestHeaders.TryAddWithoutValidation("appSecret", _options.AppSecretKey);
             foreach (KeyValuePair<string, string> param in _options.DefaultRequestHeaders ?? new Dictionary<string, string>())
                 _client.DefaultRequestHeaders.TryAddWithoutValidation(param.Key, param.Value);

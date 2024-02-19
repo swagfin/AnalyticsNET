@@ -59,6 +59,7 @@ namespace AnalyticsNET.API
                     builder.AllowCredentials();
                 });
             });
+
             services.AddControllers();
         }
 

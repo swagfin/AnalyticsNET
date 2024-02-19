@@ -19,7 +19,7 @@ namespace AnalyticsNET
         private HttpClient _client;
         private List<Trait> PendingTraits { get; set; } = new List<Trait>();
 
-        private int NextCallBackInMilliseconds { get; set; } = 3000;
+        private int NextCallBackInMilliseconds { get; set; } = 10000;
         private string StatusRead { get; set; } = "Stopped";
         private string AnalyticsStatus { get { return StatusRead; } set { StatusRead = value; } }
 
@@ -35,7 +35,6 @@ namespace AnalyticsNET
             foreach (KeyValuePair<string, string> param in _options.DefaultRequestHeaders ?? new Dictionary<string, string>())
                 _client.DefaultRequestHeaders.TryAddWithoutValidation(param.Key, param.Value);
             AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Stopped.ToString();
-            NextCallBackInMilliseconds = 3000;
         }
         public Task StartAsync(CancellationToken cancellationToken)
         {
@@ -87,6 +86,8 @@ namespace AnalyticsNET
                 {
 
                     AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Running.ToString();
+                    //Sleep Thread
+                    Thread.Sleep(NextCallBackInMilliseconds < 3000 ? 3000 : NextCallBackInMilliseconds);
                     //Track Last Seen
                     if (_options.SendDeviceHeartBeats)
                         this.Track(new Trait { Key = "heartBeat", Value = DateTime.Now.ToString() });
@@ -147,8 +148,7 @@ namespace AnalyticsNET
                             }
                         }
                     }
-                    //Sleep Thread
-                    Thread.Sleep(NextCallBackInMilliseconds < 3000 ? 3000 : NextCallBackInMilliseconds);
+
                 }
             });
             AnalyticThread.Start();

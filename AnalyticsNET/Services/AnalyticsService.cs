@@ -175,6 +175,7 @@ namespace AnalyticsNET
             catch (Exception ex)
             {
                 _logger.LogError($"consuming server response failed: {ex.Message}");
+                NextCallBackInMilliseconds = this._options.InitialCallBackInMilliseconds;
             }
         }
 

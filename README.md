@@ -73,3 +73,9 @@ services.AddHostedService(svc => new AnalyticsNETHostedService(new AnalyticsOpti
 
 There is an example of an Analytics API that received metrics here 
 [AnalyticsNet.API](https://github.com/swagfin/AnalyticsNET/tree/master/AnalyticsNET.API)
+
+## Contributions
+Contributions are welcome! If you have ideas for improvements, new features, or bug fixes, feel free to open an issue or submit a pull request on [Project Repository](https://github.com/swagfin/AnalyticsNET/tree/master/)
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/swagfin/AnalyticsNET/blob/master/LICENSE) file for details.

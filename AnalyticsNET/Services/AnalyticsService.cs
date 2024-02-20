@@ -137,16 +137,16 @@ namespace AnalyticsNET
                                 //Mark to be Requeued
                                 trait.FailedCount++;
                                 trait.NextSending = trait.NextSending.AddMinutes(trait.FailedCount);
-                                //cool off
-                                NextCallBackInMilliseconds = 60000;
+                                //cool off 1min
+                                NextCallBackInMilliseconds = 60 * 1000;
                             }
                             //Maximum Fails to Stop
                             int maxFailed = GetFailedTraitsCount();
                             if (maxFailed >= _options.MaxFailedToAbort)
                             {
                                 _logger.LogWarning($"maximum failed traits ({maxFailed}) reached!, re-scheduling");
-                                //cool off
-                                NextCallBackInMilliseconds = 60 * 30 * 1000;
+                                //cool off 30min
+                                NextCallBackInMilliseconds = 30 * 60 * 1000;
                                 PendingTraits.Clear();
                             }
                         }
@@ -156,7 +156,6 @@ namespace AnalyticsNET
             });
             AnalyticThread.Start();
         }
-
 
         private void TryConsumeServerResponse(string response, CancellationToken cancellationToken)
         {
@@ -168,7 +167,10 @@ namespace AnalyticsNET
                     _logger.LogInformation($"next callback in : {nextCallback:N0} milliseconds");
                     NextCallBackInMilliseconds = nextCallback;
                 }
-                //** future processing
+                else
+                {
+                    NextCallBackInMilliseconds = this._options.InitialCallBackInMilliseconds;
+                }
             }
             catch (Exception ex)
             {

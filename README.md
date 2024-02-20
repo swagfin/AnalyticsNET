@@ -71,11 +71,19 @@ services.AddHostedService(svc => new AnalyticsNETHostedService(new AnalyticsOpti
 
 ### Collecting Analytics Data
 
-There is an example of an Analytics API that received metrics here 
+There is an example of an Analytics API that shows how you can receive metrics here 
 [AnalyticsNet.API](https://github.com/swagfin/AnalyticsNET/tree/master/AnalyticsNET.API)
 
 ## Contributions
 Contributions are welcome! If you have ideas for improvements, new features, or bug fixes, feel free to open an issue or submit a pull request on [Project Repository](https://github.com/swagfin/AnalyticsNET/tree/master/)
+
+## To Do
+
+I am actively adding more features as time goes by and here is the Project Milestones;
+1. Integration with Prometheus and Grafana Dashboards
+2. Ability to add Encryption and Decryption factoring in performance (Done)
+3. More additional features...
+
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/swagfin/AnalyticsNET/blob/master/LICENSE) file for details.

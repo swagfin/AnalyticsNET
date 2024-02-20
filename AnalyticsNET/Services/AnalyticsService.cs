@@ -30,7 +30,7 @@ namespace AnalyticsNET
             this.PendingTraits = new List<Trait>();
             this._client = new HttpClient();
             this._client.Timeout = TimeSpan.FromSeconds(30);
-            this._client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "SPOS-Analytics");
+            this._client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "AnalyticsNET Client");
             this._client.DefaultRequestHeaders.TryAddWithoutValidation("appSecret", _options.AppSecretKey);
             foreach (KeyValuePair<string, string> param in _options.DefaultRequestHeaders ?? new Dictionary<string, string>())
                 this._client.DefaultRequestHeaders.TryAddWithoutValidation(param.Key, param.Value);

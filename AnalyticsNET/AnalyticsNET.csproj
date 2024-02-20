@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.3</AssemblyVersion>
-    <FileVersion>1.0.3</FileVersion>
+    <AssemblyVersion>1.0.4</AssemblyVersion>
+    <FileVersion>1.0.4</FileVersion>
     <ApplicationIcon>AnalyticsNET.ico</ApplicationIcon>
     <PackageIcon>AnalyticsNET.jpg</PackageIcon>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Title>AnalyticsNET</Title>
     <Description>AnalyticsNET library is designed to empower your application with robust analytical capabilities, including data logging, error metrics logging, error reporting, and insightful metrics collection</Description>

@@ -7,6 +7,9 @@ namespace AnalyticsNET.API.Models
         [Required, StringLength(220)]
         public string AppName { get; set; }
 
+        [StringLength(10)]
+        public string AppVersion { get; set; } = "Unknown";
+
         [Required, StringLength(220)]
         public string DeviceId { get; set; }
 

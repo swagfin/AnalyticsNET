@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace AnalyticsNET
 
         private int NextCallBackInMilliseconds { get; set; } = 3000;
         private string StatusRead { get; set; } = "Stopped";
+        private string AppVersion { get; set; } = "Unknown";
         private string AnalyticsStatus { get { return StatusRead; } set { StatusRead = value; } }
 
         public AnalyticsService(AnalyticsOptions analyticsDeviceOptions, IAnalyticsLogger analyticsLogger = null)
@@ -48,6 +50,8 @@ namespace AnalyticsNET
                 AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Starting.ToString();
                 if (string.IsNullOrWhiteSpace(_options.AnalyticsAPIEndpoint))
                     throw new Exception("Analytics Server API has not been configured, start failed");
+                //** get running app version
+                this.AppVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
                 //** start thread
                 StartAnalyticBackgroundThread(cancellationToken);
                 _logger.LogInformation("service started...");
@@ -107,6 +111,7 @@ namespace AnalyticsNET
                             Dictionary<string, string> parameters = new Dictionary<string, string>
                             {
                                 { "appName", _options.AppName },
+                                { "appVersion", AppVersion },
                                 { "deviceId", _options.DeviceId },
                                 { "deviceName", Environment.MachineName },
                                 { "traitKey", "cryptData" },

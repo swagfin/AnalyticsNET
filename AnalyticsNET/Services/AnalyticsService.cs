@@ -20,7 +20,7 @@ namespace AnalyticsNET
         private readonly HttpClient _client;
         private List<Trait> PendingTraits { get; set; } = new List<Trait>();
 
-        private int NextCallBackInMilliseconds { get; set; } = 3000;
+        private int NextCallBackInMilliseconds { get; set; } = 30000;
         private string StatusRead { get; set; } = "Stopped";
         private string AppVersion { get; set; } = "Unknown";
         private string AnalyticsStatus { get { return StatusRead; } set { StatusRead = value; } }
@@ -81,7 +81,10 @@ namespace AnalyticsNET
         public string GetAnalyticsStatus() => AnalyticsStatus;
 
         public void Track(string traitKey, string traitValue) => Track(new Trait { Key = traitKey, Value = traitValue });
-        public void Track(Trait trait) => PendingTraits.Add(trait);
+        public void Track(Trait trait)
+        {
+            try { PendingTraits.Add(trait); } catch (Exception err) { _logger.LogError(err.Message); }
+        }
 
         private void StartAnalyticBackgroundThread(CancellationToken cancellationToken)
         {
@@ -138,7 +141,7 @@ namespace AnalyticsNET
                         {
                             foreach (Trait trait in readyToSendTraits)
                             {
-                                _logger.LogError($"error sending trait: {trait.Id}, Exception: {ex.Message}");
+                                _logger.LogWarning($"error sending trait: {trait.Id}, Exception: {ex.Message}");
                                 //Mark to be Requeued
                                 trait.FailedCount++;
                                 trait.NextSending = trait.NextSending.AddMinutes(trait.FailedCount);

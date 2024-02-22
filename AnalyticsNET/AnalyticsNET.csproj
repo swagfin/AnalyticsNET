@@ -1,49 +1,46 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.6</AssemblyVersion>
-    <FileVersion>1.0.6</FileVersion>
-    <ApplicationIcon>AnalyticsNET.ico</ApplicationIcon>
-    <PackageIcon>AnalyticsNET.jpg</PackageIcon>
-    <Version>1.0.6</Version>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Title>AnalyticsNET</Title>
-    <Description>AnalyticsNET library is designed to empower your application with robust analytical capabilities, including data logging, error metrics logging, error reporting, and insightful metrics collection</Description>
-    <PackageProjectUrl>https://github.com/swagfin/AnalyticsNET</PackageProjectUrl>
-    <Copyright>Copyright ©  2024</Copyright>
-    <RepositoryUrl>https://github.com/swagfin/AnalyticsNET</RepositoryUrl>
-    <PackageTags>analytics;logger;logging-library;data-collection;metrics-gathering;reporting-tool</PackageTags>
-    <PackageReleaseNotes>- Initial release of the AnalyticsNET library for C#.
-- Added support for data logging, error metrics logging, and error reporting.
-- Implemented customizable options for app settings and API endpoints.
-- Included device heartbeats feature for monitoring device health.</PackageReleaseNotes>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <RepositoryType>git</RepositoryType>
-    <Company>Crudsoft Technologies</Company>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<AssemblyVersion>1.0.7</AssemblyVersion>
+		<FileVersion>1.0.7</FileVersion>
+		<PackageIcon>AnalyticsNET.jpg</PackageIcon>
+		<Version>1.0.7</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Title>AnalyticsNET</Title>
+		<Description>AnalyticsNET library is designed to empower your application with robust analytical capabilities, including data logging, error metrics logging, error reporting, and insightful metrics collection</Description>
+		<PackageProjectUrl>https://github.com/swagfin/AnalyticsNET</PackageProjectUrl>
+		<Copyright>Copyright ©  2024</Copyright>
+		<RepositoryUrl>https://github.com/swagfin/AnalyticsNET</RepositoryUrl>
+		<PackageTags>analytics;logger;logging-library;data-collection;metrics-gathering;reporting-tool</PackageTags>
+		<PackageReleaseNotes>
+			- Initial release of the AnalyticsNET library for C#.
+			- Added support for data logging, error metrics logging, and error reporting.
+			- Implemented customizable options for app settings and API endpoints.
+			- Included device heartbeats feature for monitoring device health.
+		</PackageReleaseNotes>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<RepositoryType>git</RepositoryType>
+		<Company>Crudsoft Technologies</Company>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="AnalyticsNET.ico" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="AnalyticsNET.jpg">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="AnalyticsNET.jpg">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>

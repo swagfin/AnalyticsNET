@@ -38,6 +38,6 @@ namespace AnalyticsNET
         /// <summary>
         /// Initial wait time before the Service can sent its first analytics, Default is 10 seconds = 10,000 milliseconds
         /// </summary>
-        public int InitialCallBackInMilliseconds { get; set; } = 10000;
+        public int InitialCallBackInMilliseconds { get; set; } = 30000;
     }
 }

@@ -42,7 +42,7 @@ namespace AnalyticsNET.API.Controllers
                     _logger.LogInformation(request.TraitValue);
                 }
                 //response
-                string sessionGen = $"ANONYMOUS-{request.AppName}{ipAddress.ToMD5String()}-{DateTime.UtcNow:yyyyMMdd}";
+                string sessionGen = string.Format("ANONYMOUS-{0}-{1}", $"{request.AppName}{ipAddress}".ToMD5String(), DateTime.UtcNow.ToString("yyyyMMdd"));
                 //Handle Request to Subscribers
                 return Content($"10000|{sessionGen}|OK");
             }

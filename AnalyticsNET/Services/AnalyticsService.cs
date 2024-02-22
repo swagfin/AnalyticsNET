@@ -94,7 +94,7 @@ namespace AnalyticsNET
 
                     AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Running.ToString();
                     //Sleep Thread
-                    Thread.Sleep(NextCallBackInMilliseconds < 3000 ? 3000 : NextCallBackInMilliseconds);
+                    await Task.Delay(NextCallBackInMilliseconds < 3000 ? 3000 : NextCallBackInMilliseconds, cancellationToken);
                     //Track Last Seen
                     if (_options.SendDeviceHeartBeats)
                         this.Track(new Trait { Key = "heartBeat", Value = DateTime.Now.ToString() });

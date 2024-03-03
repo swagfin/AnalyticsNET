@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,7 +11,6 @@ namespace AnalyticsNET.Sample.Winforms
         public AnalyticsService _analyticService;
         private readonly CancellationTokenSource _cancellationTokenSource;
         private ConsoleLogger _analyticLogger;
-        private Thread _monitorThread;
 
         public MainWindow()
         {
@@ -22,77 +22,83 @@ namespace AnalyticsNET.Sample.Winforms
 
         private async void startServiceBtn_Click(object sender, EventArgs e)
         {
-            startServiceBtn.Enabled = false;
-            this._analyticService = new AnalyticsService(new AnalyticsOptions
+            try
             {
-                AppSecretKey = "someHashHashKey12545678",
-                AppName = "TestApp",
-                DeviceId = "EMUD-A001-B001-C001-D001",
-                AnalyticsAPIEndpoint = "https://localhost:7001/",
-                SendDeviceHeartBeats = true,
-                MaxFailedToAbort = 2,
-                InitialCallBackInMilliseconds = 5000
-            }, _analyticLogger);
-
-            //Start
-            await this._analyticService.StartAsync(this._cancellationTokenSource.Token);
-            stopServiceBtn.Enabled = true;
-            //Simple Track
-            this._analyticService.Track("health", "login Successfully");
-
-            await Task.Delay(3000);
-            this._analyticService.Track("error", "Issue with Server, 404 Response");
-            //Monitor
-            MonitorTraits();
-        }
-
-        private void MonitorTraits()
-        {
-            this._monitorThread = new Thread(() =>
-            {
-                while (true)
+                startServiceBtn.Enabled = false;
+                this._analyticService = new AnalyticsService(new AnalyticsOptions
                 {
-                    if (this._analyticService != null)
-                    {
-                        analyticsFailedLabel.Text = string.Format("{0:N0}", this._analyticService.GetFailedTraitsCount());
-                    }
-                    Thread.Sleep(1000);
-                }
-            });
-            this._monitorThread.Start();
+                    AppSecretKey = "someHashHashKey12545678",
+                    AppName = "TestApp",
+                    DeviceId = "EMUD-A001-B001-C001-D001",
+                    AnalyticsAPIEndpoint = "https://localhost:7001/",
+                    SendDeviceHeartBeats = true,
+                    MaxFailedToAbort = 2,
+                    InitialCallBackInMilliseconds = 5000
+                }, _analyticLogger);
+
+                //Start
+                await this._analyticService.StartAsync(this._cancellationTokenSource.Token);
+                stopServiceBtn.Enabled = true;
+                SendAnalyticGroupBox.Enabled = true;
+                //Simple Track
+                this._analyticService.Track("Health", "Application initialized");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private async void stopServiceBtn_Click(object sender, EventArgs e)
         {
-            stopServiceBtn.Enabled = false;
-            await this._analyticService.StopAsync(this._cancellationTokenSource.Token);
-            this._monitorThread.Abort();
-            startServiceBtn.Enabled = true;
-        }
-    }
-    class ConsoleLogger : IAnalyticsLogger
-    {
-        public TextBox _textBox { get; }
-        public ConsoleLogger(TextBox textBox)
-        {
-            _textBox = textBox;
-            _textBox.Text = string.Empty;
+            try
+            {
+                stopServiceBtn.Enabled = false;
+                await this._analyticService.StopAsync(default);
+                startServiceBtn.Enabled = true;
+                SendAnalyticGroupBox.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-
-        public void LogError(string log)
+        private async void TrackAnalyticBtn_Click(object sender, EventArgs e)
         {
-            _textBox.AppendText("ERROR>>>>>" + log + Environment.NewLine);
+            try
+            {
+                if (!stopServiceBtn.Enabled)
+                    return;
+                else if (string.IsNullOrEmpty(TraitBox.Text.Trim()))
+                {
+                    TraitBox.Select();
+                    return;
+                }
+                else if (string.IsNullOrEmpty(TraitValueBox.Text.Trim()))
+                {
+                    TraitValueBox.Select();
+                    return;
+                }
+                TrackAnalyticBtn.Enabled = false;
+                //queue trait
+                this._analyticService.Track(TraitBox.Text.Trim(), TraitValueBox.Text.Trim());
+                await Task.Delay(500);
+                TrackAnalyticBtn.Enabled = true;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
-        public void LogInformation(string log)
+        private void GenerateRndMetricLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            _textBox.AppendText(log + Environment.NewLine);
+            GenerateAndAssignRandomMetric();
         }
 
-        public void LogWarning(string log)
+        private void GenerateAndAssignRandomMetric()
         {
-            _textBox.AppendText(log + Environment.NewLine);
+            KeyValuePair<string, string> metricExample = MetricsExamples.GetRandomMetric();
+            TraitBox.Text = metricExample.Key;
+            TraitValueBox.Text = metricExample.Value;
         }
     }
 }

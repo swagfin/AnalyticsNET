@@ -23,6 +23,9 @@ namespace AnalyticsNET
         private int NextCallBackInMilliseconds { get; set; } = 30000;
         private string StatusRead { get; set; } = "Stopped";
         private string AppVersion { get; set; } = "Unknown";
+
+        private CancellationToken CurrentCancellationToken = default;
+
         private string AnalyticsStatus { get { return StatusRead; } set { StatusRead = value; } }
 
         public AnalyticsService(AnalyticsOptions analyticsDeviceOptions, IAnalyticsLogger analyticsLogger = null)
@@ -52,6 +55,7 @@ namespace AnalyticsNET
                     throw new Exception("Analytics Server API has not been configured, start failed");
                 //** get running app version
                 this.AppVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "Unknown";
+                this.CurrentCancellationToken = cancellationToken;
                 //** start thread
                 StartAnalyticBackgroundThread(cancellationToken);
                 _logger.LogInformation("service started...");
@@ -70,7 +74,8 @@ namespace AnalyticsNET
             try
             {
                 AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Stopping.ToString();
-                AnalyticThread?.Interrupt();
+                if (!CurrentCancellationToken.IsCancellationRequested)
+                    AnalyticThread?.Interrupt();
                 AnalyticsStatus = AnalyticsNET.AnalyticsStatus.Stopped.ToString();
                 _logger.LogInformation("stopped service");
             }
@@ -100,7 +105,7 @@ namespace AnalyticsNET
                     await Task.Delay(NextCallBackInMilliseconds < 3000 ? 3000 : NextCallBackInMilliseconds, cancellationToken);
                     //Track Last Seen
                     if (_options.SendDeviceHeartBeats)
-                        this.Track(new Trait { Key = "heartBeat", Value = DateTime.Now.ToString() });
+                        this.Track(new Trait { Key = "heartBeat", Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") });
                     //Proceed
                     List<Trait> readyToSendTraits = PendingTraits.Where(x => x.SentSuccesfully != true && x.NextSending < DateTime.Now).Take(100).ToList();
                     //Check if Null

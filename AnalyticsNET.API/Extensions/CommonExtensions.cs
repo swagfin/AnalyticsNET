@@ -81,6 +81,10 @@ namespace AnalyticsNET.API
             return response;
         }
 
+        public static bool IsStuEncrypted(this string input)
+        {
+            return Regex.IsMatch(input, @"^[0-9a-fA-F]*$", RegexOptions.IgnoreCase) && input.Length % 2 == 0;
+        }
         public static string StuDecrypt(this string cipher, int k)
         {
             string response = string.Empty;

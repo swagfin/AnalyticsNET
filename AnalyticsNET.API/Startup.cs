@@ -27,10 +27,10 @@ namespace AnalyticsNET.API
                 {
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
+                    Scheme = "AppSecret",
+                    BearerFormat = "string",
                     In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+                    Description = "AppSecret for application authorization. \r\n\r\n Enter 'AppSecret' [space] and then your app secret text input below.\r\n\r\nExample: \"AppSecret 1safsfsdfdfd\"",
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
@@ -40,7 +40,7 @@ namespace AnalyticsNET.API
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
+                                Id = "AppSecret"
                             }
                         },
                         new List<string>()

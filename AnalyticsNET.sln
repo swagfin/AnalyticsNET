@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsNET.Sample.Winform
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalyticsNET.API", "AnalyticsNET.API\AnalyticsNET.API.csproj", "{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsNET.ServerLoadTester", "AnalyticsNET.ServerLoadTester\AnalyticsNET.ServerLoadTester.csproj", "{1FDEEE3F-4036-40F0-B4AB-420B51357640}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +31,17 @@ Global
 		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDBABD46-CD9F-44CB-B58B-7DB4071292DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FDEEE3F-4036-40F0-B4AB-420B51357640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FDEEE3F-4036-40F0-B4AB-420B51357640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FDEEE3F-4036-40F0-B4AB-420B51357640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FDEEE3F-4036-40F0-B4AB-420B51357640}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2892D2E8-FBD0-4146-9610-5058F442B802} = {2986B264-A86B-443D-AE7C-57DCDA63BD4A}
+		{1FDEEE3F-4036-40F0-B4AB-420B51357640} = {2986B264-A86B-443D-AE7C-57DCDA63BD4A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CB599E7-37DD-4ACE-94AB-C81693CB6450}

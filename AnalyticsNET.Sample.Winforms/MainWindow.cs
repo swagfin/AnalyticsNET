@@ -27,10 +27,10 @@ namespace AnalyticsNET.Sample.Winforms
                 startServiceBtn.Enabled = false;
                 this._analyticService = new AnalyticsService(new AnalyticsOptions
                 {
-                    AppSecretKey = "someHashHashKey12545678",
+                    AppSecretKey = "someHashHashKey125456",
                     AppName = "TestApp",
                     DeviceId = "EMUD-A001-B001-C001-D001",
-                    AnalyticsAPIEndpoint = "https://localhost:7001/",
+                    AnalyticsAPIEndpoint = "https://localhost:5001/api/Analytics",
                     SendDeviceHeartBeats = true,
                     MaxFailedToAbort = 2,
                     InitialCallBackInMilliseconds = 5000
